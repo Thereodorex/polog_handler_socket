@@ -19,7 +19,7 @@ class BaseHandler:
         self.alt = alt
         raise NotImplementedError
 
-    def __call__(self, args, **kwargs):
+    def __call__(self, *args, **kwargs):
         """
         Благодаря этой функции объект класса является вызываемым.
         В случае неудачи при записи лога, выполняется функция alt, если она была указана при инициализации объекта.
@@ -32,7 +32,7 @@ class BaseHandler:
         except Exception as e:
             self.run_alt(args, **kwargs)
 
-    def to_do_or_not_to_do(self, args, **kwargs):
+    def to_do_or_not_to_do(self, *args, **kwargs):
         """
         Здесь принимается решение, записывать лог или нет.
         По умолчанию это будет сделано в любом случае.
@@ -50,7 +50,7 @@ class BaseHandler:
                 return result
         return True
 
-    def run_alt(self, args, **kwargs):
+    def run_alt(self, *args, **kwargs):
         """
         Если по какой-то причине записать лог не удалось, запускается данный метод.
         По умолчанию он не делает ничего, однако, если в конструктор класса была передана функция в качестве параметра alt, она будет вызвана со всеми аргументами, которые изначально были переданы в __call__().
@@ -68,7 +68,7 @@ class BaseHandler:
         """
         raise NotImplementedError
 
-    def get_content(self, args, **kwargs):
+    def get_content(self, *args, **kwargs):
         """
         Метод, который возвращает объект, с которым что-то будет делать self.do().
         В большинстве реализаций обработчиков это будет специфически отформатированная строка.
