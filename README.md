@@ -3,6 +3,7 @@
 ## Usage
 
 ### Client
+```python
   from socket_handler import socket_sender
 
   HOST = '127.0.0.1'
@@ -18,8 +19,10 @@
     return arg
     
   logged_func("test polog")
+```
     
 ### Server
+```python
   from socket_handler import Server
   
   HOST = '127.0.0.1'
@@ -34,3 +37,4 @@
   app.start_server()
   app.loop()
   app.stop_server()
+```
