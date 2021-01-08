@@ -2,18 +2,21 @@ import socket
 import time
 import socketserver
 import threading
-import dateutil.parser
 import json
+import dateutil.parser
+
 
 def default_handler(args, **kwargs):
-    print(args)
-    print(kwargs)
+    pass
+    # print(args)
+    # print(kwargs)
+
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
-class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
+class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request.recv(1024)
         message = data.decode()
@@ -28,8 +31,8 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
         self.server.queue.add(message)
         self.request.send("Ok".encode())
 
-class Queue:
 
+class Queue:
     def __init__(self, ip, port):
         self.server = ThreadedTCPServer((ip, port), ThreadedTCPRequestHandler)
         self.server.queue = self
@@ -40,7 +43,7 @@ class Queue:
 
     def start_server(self):
         self.server_thread.start()
-        print("Server loop running in thread:", self.server_thread.name)
+        # print("Server loop running in thread:", self.server_thread.name)
 
     def stop_server(self):
         self.server.shutdown()
@@ -58,22 +61,26 @@ class Queue:
     def exists(self):
         return len(self.messages)
 
-class Server:
 
+class Server:
     def __init__(self, ip, port, handler=default_handler):
         self.queue = Queue(ip, port)
         self.handler = handler
 
-    def start_server(self):
+    def start(self):
         self.queue.start_server()
+        self.loop()
 
     def stop_server(self):
         self.queue.stop_server()
 
     def loop(self):
         while True:
-            if self.queue.exists():
-                self.handle(self.queue.get())
+            try:
+                if self.queue.exists():
+                    self.handle(self.queue.get())
+            except:
+                pass
 
     def send(self, ip, port, message):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -92,6 +99,8 @@ class Server:
                         kkw[k] = dateutil.parser.parse(v[1])
                 self.handler(args, **kkw)
             else:
-                print(f"Got: {message}")
+                pass
+                # print(f"Got: {message}")
         except Exception as e:
-            print(f"Error: {e}")
+            pass
+            # print(f"Error: {e}")
