@@ -63,9 +63,9 @@ class Queue:
 
 
 class Server:
-    def __init__(self, ip, port, handler=default_handler):
+    def __init__(self, ip, port, handlers=[default_handler]):
         self.queue = Queue(ip, port)
-        self.handler = handler
+        self.handlers = handlers
 
     def start(self):
         self.queue.start_server()
@@ -97,7 +97,8 @@ class Server:
                 for k,v in kkw.items():
                     if (type(v) == list and len(v) == 2 and v[0] == 'datetime'):
                         kkw[k] = dateutil.parser.parse(v[1])
-                self.handler(args, **kkw)
+                for handler in self.handlers:
+                    handler(args, **kkw)
             else:
                 pass
                 # print(f"Got: {message}")

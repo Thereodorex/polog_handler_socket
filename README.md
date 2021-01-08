@@ -20,7 +20,7 @@ config.add_handlers(socket_sender(HOST, PORT))
 
 
 ```python
-# В дополнении к коду выше, обработчик уже должен быть подключён
+# В дополнении к коду выше, обработчик уже должен быть подключён.
 from polog import flog
 
 
@@ -28,14 +28,14 @@ from polog import flog
 def logged_func(arg):
     return arg
 
-logged_func("test polog socket handler") # По результату выполнения функции на сервер будет отправлено сообщение с логом
+logged_func("test polog socket handler") # По результату выполнения функции на сервер будет отправлено сообщение с логом.
 ```
 
 Пример сервера:
 
 
 ```python
-from polog.handlers.smtp.sender import SMTP_sender
+from polog.handlers.smtp.sender import SMTP_sender # Пакет polog уже должен быть установлен.
 from socket_handler import Server
 
 
@@ -43,6 +43,6 @@ HOST = '127.0.0.1'
 PORT = 65432
 
 print("The Polog Socket Server started.")
-server = Server(HOST, PORT, handler=SMTP_sender('from_me42@yandex.com', 'JHjhhb87TY(*Ny08z)', 'smtp.yandex.ru', 'to_me@yandex.ru')
+server = Server(HOST, PORT, handlers=[SMTP_sender('from_me42@yandex.com', 'JHjhhb87TY(*Ny08z)', 'smtp.yandex.ru', 'to_me@yandex.ru')])
 server.start()
 ```
