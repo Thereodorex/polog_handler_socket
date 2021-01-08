@@ -18,7 +18,7 @@
   def logged_func(arg):
     return arg
     
-  logged_func("test polog")
+  logged_func("test polog socket handler")
 ```
     
 ### Server
