@@ -2,6 +2,7 @@ import socket
 from handler.client.base import BaseHandler
 from handler.client.socket_handler import SocketHandler
 
+
 class Socket_Sender(BaseHandler):
 
     def __init__(self, host, port, alt=None, filter=None, only_errors=None, secondHandler=None):

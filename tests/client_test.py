@@ -1,19 +1,11 @@
 import os
-from handler.client.socket_sender import Socket_Sender
+from socket_handler.client.socket_sender import socket_sender
+from config import HOST, PORT
 
 from polog import config
 from polog import flog
 
-
-HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
-PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
-
-config.add_handlers(Socket_Sender(HOST, PORT))
-
-class Kek:
-
-    def __init__(self):
-        self.kek = 1
+config.add_handlers(socket_sender(HOST, PORT))
 
 @flog
 def logged_func(arg):
@@ -24,4 +16,4 @@ def client_test():
         pid = os.fork()
         if not pid:
             break
-    logged_func('First test string')
+    logged_func(str(i) + ' test string')

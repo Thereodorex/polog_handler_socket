@@ -1,6 +1,6 @@
 from config import HOST, PORT
-from handler.server.server import Server
-from handler.client.socket_sender import Socket_Sender
+from socket_handler import Server
+
 
 def handler(args, **kwargs):
     print(args)
@@ -8,7 +8,7 @@ def handler(args, **kwargs):
 
 def server_test():
     print("Server started.")
-    app = Server(HOST, PORT, handler = handler)
+    app = Server(HOST, PORT)
     app.start_server()
     app.loop()
     app.stop_server()
