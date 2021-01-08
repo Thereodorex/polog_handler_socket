@@ -5,8 +5,6 @@ import threading
 import dateutil.parser
 import json
 
-from config import HOST, PORT
-
 def default_handler(args, **kwargs):
     print(args)
     print(kwargs)

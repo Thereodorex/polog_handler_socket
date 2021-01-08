@@ -6,3 +6,4 @@ server_main.py
 *.swp
 setup.py
 .pytest_cache
+socket_handler/client_old
