@@ -3,3 +3,6 @@ tests
 client_main.py
 config.py
 server_main.py
+*.swp
+setup.py
+.pytest_cache

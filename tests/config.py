@@ -1,3 +1,0 @@
-HOST = '62.113.118.71'
-PORT = 65432
-FORMAT = 'text'
