@@ -70,6 +70,7 @@ class Server:
     def start(self):
         self.queue.start_server()
         self.loop()
+        self.stop_server()
 
     def stop_server(self):
         self.queue.stop_server()
@@ -92,7 +93,7 @@ class Server:
 
     def handle(self, message):
         try:
-            if self.handler:
+            if self.handlers:
                 args, kkw = json.loads(message)
                 for k,v in kkw.items():
                     if (type(v) == list and len(v) == 2 and v[0] == 'datetime'):
@@ -102,6 +103,10 @@ class Server:
             else:
                 pass
                 # print(f"Got: {message}")
+        except KeyboardInterrupt:
+            print('bye')
+            self.stop_server()
+            exit(0)
         except Exception as e:
-            pass
+            print(e)
             # print(f"Error: {e}")
